@@ -20,42 +20,42 @@ var urlsToCache = [
 
 ];
 
-self.addEventListener('install', function(event){
+self.addEventListener('install', function (event) {
 	event.waitUntil(
 		caches.open(CACHE_NAME)
-		.then(function(cache) {
-			return cache.addAll(urlsToCache);
-		})
+			.then(function (cache) {
+				return cache.addAll(urlsToCache);
+			})
 	);
 })
 
-self.addEventListener('activate', function(event){
+self.addEventListener('activate', function (event) {
 	event.waitUntil(
 		caches.keys()
-		.then(function(cacheNames) {
-			return Promise.all(
-				cacheNames.map(function(cacheName){
-					if(cacheName != CACHE_NAME){	
-						console.log("ServiceWorker: cache " + cacheName + " deleted");
-						return caches.delete(cacheName);
-					}
-				})
-			);
-		})
+			.then(function (cacheNames) {
+				return Promise.all(
+					cacheNames.map(function (cacheName) {
+						if (cacheName != CACHE_NAME) {
+							console.log("ServiceWorker: cache " + cacheName + " deleted");
+							return caches.delete(cacheName);
+						}
+					})
+				);
+			})
 	);
 })
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
 	event.respondWith(
-		caches.match(event.request, {cacheName:CACHE_NAME})
-		.then(function(response) {
-			if(response){
-				console.log("ServiceWorker: Use asset from cache: ", response.url);
-				return response;
-			}
-			
-			console.log("ServiceWorker: Load Asset from server: ", event.request.url);
-			return fetch(event.request);
-		})
+		caches.match(event.request, { cacheName: CACHE_NAME })
+			.then(function (response) {
+				if (response) {
+					console.log("ServiceWorker: Use asset from cache: ", response.url);
+					return response;
+				}
+
+				console.log("ServiceWorker: Load Asset from server: ", event.request.url);
+				return fetch(event.request);
+			})
 	);
 });
