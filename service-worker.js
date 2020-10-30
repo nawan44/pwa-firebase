@@ -8,11 +8,12 @@ var urlsToCache = [
 	'/pages/contact.html',
 	'/pages/product.html',
 	'/pages/input-product.html',
-
 	'/css/materialize.min.css',
 	'/css/style.css',
 	'/js/materialize.min.js',
 	'/js/script.js',
+	'/images/icon.png',
+
 	'/images/icons/icon-72x72.png',
 	'/images/icons/icon-96x96.png',
 	'/images/icons/icon-128x128.png',
